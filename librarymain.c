@@ -6,23 +6,27 @@ void delay(unsigned int ms) {
     clock_t start = clock();    
     while ((clock() - start) * 1000 / CLOCKS_PER_SEC < ms);    
 }
-void add()
-{
+struct book{
+	int sn;
+	char bname[30];
+	char authname[30];
+}b;
+struct student{
+	int id;
+	char stname[30];
+	char bname[30];
+	char date[12];
 	
-}
-void issue()
-{
-	
-}
-void retarn()
-{
-	
-}
+}s;
+void add();
+//void issue();
+//void rmove();
+FILE *fb;
 int main(){
 	char x[]="devs";
 	char y[4];
 	int pass,p=2,choice;
-	FILE *f;
+	
 	Log:
 	printf(" \n____________Library Login____________\n");
 	printf("\n\t\t Username: ");
@@ -54,14 +58,35 @@ int main(){
 			add();
 			break;
 		case 2:
-			issue();
+		//	issue();
 			break;
 		case 3:
-			retarn();
+		//	rmove();
 			break;
 		case 4:
 			exit(0);
 	}
 	return 0;
 	
+}
+void add()
+{
+	fb = fopen("library.txt","ab");
+	
+	printf("\nEnter Book id :  ");
+	scanf("%d",&b.sn);
+	
+	printf("\nEnter Book name :  ");
+	fflush(stdin);
+	gets(b.bname);
+	
+	printf("\nEnter Author Name :  ");
+	fflush(stdin);
+	gets(b.authname);
+	
+	fwrite(&b,sizeof(b),1,fb);
+	
+	printf("\nBook Added Successfully!!!");
+	
+	fclose(fb);
 }

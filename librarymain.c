@@ -19,6 +19,7 @@ struct student{
 	
 }s;
 void add();
+void booklist();
 //void issue();
 //void rmove();
 FILE *fb;
@@ -49,7 +50,8 @@ int main(){
 	printf("\n\t\t 1.Add a Book ");
 	printf("\n\t\t 2.Issue a Book ");
 	printf("\n\t\t 3.Return a Book");
-	printf("\n\t\t 4.Exit");
+	printf("\n\t\t 4.Book List");
+	printf("\n\t\t 5.Exit");
 	printf("\n\n\t\t Enter your choice :  ");
 	scanf("%d",&choice);
 	switch(choice)
@@ -64,6 +66,9 @@ int main(){
 		//	rmove();
 			break;
 		case 4:
+			booklist();
+			break;
+		case 5:
 			exit(0);
 	}
 	return 0;
@@ -89,4 +94,19 @@ void add()
 	printf("\nBook Added Successfully!!!");
 	
 	fclose(fb);
+}
+void booklist()
+{
+	system("cls");
+	system("color 0b");
+	printf("________Available Books________\n\n");
+	
+	printf("%-10s %-30s %-20s\n\n","Book ID","Book Name","Author");
+	
+	fb=fopen("library.txt","rb");
+//	rewind(fb);
+	while(fread(&b,sizeof(b),1,fb) == 1)
+	{
+		printf("%-10d %-30s %-20s",b.sn,b.bname,b.authname);
+	}
 }

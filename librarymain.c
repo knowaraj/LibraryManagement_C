@@ -10,13 +10,15 @@ struct book{
 struct student{
 	int id;
 	char stname[30];
+	int bid;
+	int clas;
 	char bname[30];
-	char date[12];
+	char date[15];
 	
 }s;
 void add();
 void booklist();
-//void issue();
+void issue();
 void rmove();
 FILE *fb;
 
@@ -43,8 +45,10 @@ int main(){
 	}
 	else{
 		printf("\n\t\tProvided Username and PIN didnt matchh ...");
+		fflush(stdin);
 		goto Log;
 	}
+	MENU:
 	printf(" \n____________Library Menu____________\n");
 	printf("\n\t\t 1.Add a Book ");
 	printf("\n\t\t 2.Issue a Book ");
@@ -59,7 +63,7 @@ int main(){
 			add();
 			break;
 		case 2:
-		//	issue();
+			issue();
 			break;
 		case 3:
 			rmove();
@@ -70,6 +74,7 @@ int main(){
 		case 5:
 			exit(0);
 	}
+	goto MENU;
 	return 0;
 	
 }
@@ -150,4 +155,56 @@ void rmove()
 	
 	remove("library.txt");
 	rename("dlt.txt","library.txt");
+	check=0;
+}
+void issue()
+{
+	int check=0;
+	system("cls");
+	
+	fb=fopen("library.txt","rb");
+	bk:
+	printf("\n\tEnter book id to Issue : ");
+	scanf("%d",&s.bid);
+	
+	while(fread(&b, sizeof(b), 1, fb)==1)
+	{
+		if(b.sn==s.bid)
+		{
+			check=1;
+			strcpy(s.bname,b.bname);
+			break;
+		}
+		else {
+			check=2;
+		}
+		if(check==2)
+		{
+			printf("\n\tRecord not found!!");
+			printf("\n\tPlease enter correct book id: ");
+			goto bk;
+		}
+	}
+	FILE *fi;
+	fi =fopen("issue.txt","ab");
+	
+	printf("\n\tEnter student name : ");
+	fflush(stdin);
+	gets(s.stname);
+	
+	printf("\n\tEnter student class : ");
+	scanf("%d",&s.clas);
+	
+	printf("\n\tEnter student id : ");	
+	fflush(stdin);
+	scanf("%d",&s.id);
+	
+	printf("\n\tEnter date in year/month/day order : ");
+	fflush(stdin);
+	gets(s.date);
+	
+	printf("\n\tBook Issued Successfully ");	
+	
+	fwrite(&s,sizeof(s),1,fi);
+	fclose(fi);
 }

@@ -20,8 +20,9 @@ void add();
 void booklist();
 void issue();
 void rmove();
+void issuelist();
 FILE *fb;
-
+FILE *fi;
 int main(){
 	char x[]="devs";
 	char y[4];
@@ -54,7 +55,8 @@ int main(){
 	printf("\n\t\t 2.Issue a Book ");
 	printf("\n\t\t 3.Remove a Book");
 	printf("\n\t\t 4.Book List");
-	printf("\n\t\t 5.Exit");
+	printf("\n\t\t 5.Issued Book List");
+	printf("\n\t\t 0.Exit");
 	printf("\n\n\t\t Enter your choice :  ");
 	scanf("%d",&choice);
 	switch(choice)
@@ -72,7 +74,13 @@ int main(){
 			booklist();
 			break;
 		case 5:
+			issuelist();
+			break;
+		case 0:
 			exit(0);
+		default:
+			printf("Enter Correct choice : ");
+			goto MENU;
 	}
 	goto MENU;
 	return 0;
@@ -185,7 +193,7 @@ void issue()
 			goto bk;
 		}
 	}
-	FILE *fi;
+
 	fi =fopen("issue.txt","ab");
 	
 	printf("\n\tEnter student name : ");
@@ -206,5 +214,19 @@ void issue()
 	printf("\n\tBook Issued Successfully ");	
 	
 	fwrite(&s,sizeof(s),1,fi);
+	fclose(fi);
+}
+void issuelist()
+{
+	system("cls");
+	printf("\n\t\t Issued Book list : ");
+	
+	printf("\n%-10s %-20s %-10s %-10s %-20s %-15s\n\n","Student ID","Student Name","Student Class","Book ID","Book name","Date");
+	fi=fopen("issue.txt","rb");
+	while(fread(&s,sizeof(s),1,fi)==1)
+	{
+		printf("\n%-10d %-20s %-13d %-10d %-20s %-15s\n\n",s.id,s.stname,s.clas,s.bid,s.bname,s.date);
+			
+	}
 	fclose(fi);
 }

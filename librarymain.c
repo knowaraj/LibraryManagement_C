@@ -128,16 +128,17 @@ void rmove()
 	int id,check=0;
 	system("cls");
 	
+	fb=fopen("library.txt","rb");
+	
 	printf("\n\tEnte Book id to Remove : ");
 	scanf("%d",&id);
 	
-	fb=fopen("library.txt","rb");
 	
 	fd =fopen("dlt.txt","wb");	
 	
-	while(fread(&b, sizeof(b), 1, fb)==1)
+	while(fread(&b,sizeof(b), 1, fb)==1)
 	{
-		if(id==b.sn)
+		if(id ==b.sn)
 		{
 			check=1;
 			continue;
@@ -153,7 +154,7 @@ void rmove()
 		system("color 02");
 		printf("\n\tBook Deleted Successfully..");	
 	}
-	else
+	if(check!=1)
 	{
 		system("color 04");
 		printf("\n\tRecord not found!!");	

@@ -2,10 +2,6 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
-void delay(unsigned int ms) {    
-    clock_t start = clock();    
-    while ((clock() - start) * 1000 / CLOCKS_PER_SEC < ms);    
-}
 struct book{
 	int sn;
 	char bname[30];
@@ -21,8 +17,9 @@ struct student{
 void add();
 void booklist();
 //void issue();
-//void rmove();
+void rmove();
 FILE *fb;
+
 int main(){
 	char x[]="devs";
 	char y[4];
@@ -30,17 +27,19 @@ int main(){
 	
 	Log:
 	printf(" \n____________Library Login____________\n");
-	printf("\n\t\t Username: ");
+	printf("\n\t Username: ");
 	gets(y);
-	printf("\n\t\t PIN: ");
+	printf("\n\t PIN: ");
 	scanf("%d",&pass);
 	system("cls");
 	int cmp=strcmp(x,y);
 //	printf("%d",cmp);
 	if(cmp==0 && pass==p)
 	{
-		printf("\n\t\t Login successful.....");	
-		delay(1000);  
+		printf("\n\t Logging innn.....");	
+		sleep(5);
+		system("cls");
+		printf("\n\t Logged IN Successfully.....");	
 	}
 	else{
 		printf("\n\t\tProvided Username and PIN didnt matchh ...");
@@ -49,7 +48,7 @@ int main(){
 	printf(" \n____________Library Menu____________\n");
 	printf("\n\t\t 1.Add a Book ");
 	printf("\n\t\t 2.Issue a Book ");
-	printf("\n\t\t 3.Return a Book");
+	printf("\n\t\t 3.Remove a Book");
 	printf("\n\t\t 4.Book List");
 	printf("\n\t\t 5.Exit");
 	printf("\n\n\t\t Enter your choice :  ");
@@ -63,7 +62,7 @@ int main(){
 		//	issue();
 			break;
 		case 3:
-		//	rmove();
+			rmove();
 			break;
 		case 4:
 			booklist();
@@ -107,6 +106,48 @@ void booklist()
 //	rewind(fb);
 	while(fread(&b,sizeof(b),1,fb) == 1)
 	{
-		printf("%-10d %-30s %-20s",b.sn,b.bname,b.authname);
+		printf("%-10d %-30s %-20s\n\n",b.sn,b.bname,b.authname);
 	}
+}
+void rmove()
+{
+	FILE *fd;
+	int id,check=0;
+	system("cls");
+	
+	printf("\n\tEnte Book id to Remove : ");
+	scanf("%d",&id);
+	
+	fb=fopen("library.txt","rb");
+	
+	fd =fopen("dlt.txt","wb");	
+	
+	while(fread(&b, sizeof(b), 1, fb)==1)
+	{
+		if(id==b.sn)
+		{
+			check=1;
+			continue;
+		}
+		else
+		{
+			fwrite(&b,sizeof(b),1,fd);
+		}
+	}
+	
+	if(check==1)
+	{
+		system("color 02");
+		printf("\n\tBook Deleted Successfully..");	
+	}
+	else
+	{
+		system("color 04");
+		printf("\n\tRecord not found!!");	
+	}
+	fclose(fb);
+	fclose(fd);
+	
+	remove("library.txt");
+	rename("dlt.txt","library.txt");
 }

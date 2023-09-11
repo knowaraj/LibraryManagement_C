@@ -76,6 +76,9 @@ int main(){
 		case 5:
 			issuelist();
 			break;
+		case 6:
+			retbook();
+			break;
 		case 0:
 			exit(0);
 		default:
@@ -207,7 +210,7 @@ void issue()
 	printf("\n\tEnter student id : ");	
 	fflush(stdin);
 	scanf("%d",&s.id);
-	
+	 
 	printf("\n\tEnter date in year/month/day order : ");
 	fflush(stdin);
 	gets(s.date);
@@ -231,3 +234,49 @@ void issuelist()
 	}
 	fclose(fi);
 }
+void retbook(){
+	FILE *fs;
+	int id,sn,check=0;
+	system("cls");
+	
+	fi=fopen("issue.txt","rb");
+	
+	printf("\n\tEnter std id and book id to Remove : ");
+	scanf("%d",&id);
+	scanf("%d",&sn);
+	
+	
+	fs =fopen("dl.txt","wb");	
+	
+	while(fread(&s,sizeof(s),1,fi)==1)
+	{
+		if(id ==s.id&&sn==s.bid)
+		{
+			check=1;
+			continue;
+		}
+		else
+		{
+			fwrite(&s,sizeof(s),1,fs);
+		}
+	}
+	
+	if(check==1)
+	{
+		system("color 02");
+		printf("\n\tBook returned Successfully..");	
+	}
+	if(check!=1)
+	{
+		system("color 04");
+		printf("\n\tRecord not found!!");	
+	}
+	fclose(fi);
+	fclose(fs);
+	
+	remove("issue.txt");
+	rename("dl.txt","issue.txt");
+	check=0;
+	
+}
+

@@ -21,34 +21,13 @@ void booklist();
 void issue();
 void rmove();
 void issuelist();
+void login();
 FILE *fb;
 FILE *fi;
+FILE *fp;
 int main(){
-	char x[]="devs";
-	char y[4];
-	int pass,p=2,choice;
-	
-	Log:
-	printf(" \n____________Library Login____________\n");
-	printf("\n\t Username: ");
-	gets(y);
-	printf("\n\t PIN: ");
-	scanf("%d",&pass);
-	system("cls");
-	int cmp=strcmp(x,y);
-//	printf("%d",cmp);
-	if(cmp==0 && pass==p)
-	{
-		printf("\n\t Logging innn.....");	
-		sleep(5);
-		system("cls");
-		printf("\n\t Logged IN Successfully.....");	
-	}
-	else{
-		printf("\n\t\tProvided Username and PIN didnt matchh ...");
-		fflush(stdin);
-		goto Log;
-	}
+	int choice;
+	login();
 	MENU:
 	printf(" \n____________Library Menu____________\n");
 	printf("\n\t\t 1.Add a Book ");
@@ -278,5 +257,63 @@ void retbook(){
 	rename("dl.txt","issue.txt");
 	check=0;
 	
+}
+void login()
+{
+ char us[]="devs";
+ char pas[20];
+ char ok[10];
+ char ne[10];
+ char get[10];
+ int f,s;
+	log:
+  printf("\n\tEnter the username  :");
+  gets(ok);
+  fflush(stdin);
+  printf("\n\tEnter the pass  :");
+  gets(pas);
+  fflush(stdin);
+  system("cls");
+    fp = fopen("LOG.txt","rb+");
+	fgets(get,20,fp);
+	if(strcmp(us,ok)!=0)
+	{
+		printf("\n\tUsername wrong try again !");
+		goto log;
+	}
+	if(strcmp(us,ok)==0&&strcmp(pas,get)==0)
+	{
+		printf("/n/tLOGGED IN");
+		//getch();
+	}
+	else
+	{
+		rewind(fp);
+		printf("\n\tPassword wrong!!\n\tIf forgot password Press 1 and Otherr to retry: ");
+		scanf("%d",&f);
+		fflush(stdin);
+		
+		if(f==1)
+		{
+			printf("\n\tEnter Security pin to change password : ");
+			scanf("%d",&s);
+			if(s==62)
+			{
+				fflush(stdin);
+				printf("\nnEnter New password max length 8 : ");
+				gets(ne);
+				
+				fprintf(fp, "%s", ne);
+				printf("\n\tPassword changed Successfully ..");
+				printf("\n\tLg in again .");
+				
+			}
+		}
+		else 
+		{
+			goto log;
+		}
+	}
+   fclose(fp);
 }
 

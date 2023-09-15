@@ -25,6 +25,7 @@ void login();
 FILE *fb;
 FILE *fi;
 FILE *fp;
+FILE *fd;
 int main(){
 	int choice;
 	login();
@@ -35,6 +36,7 @@ int main(){
 	printf("\n\t\t 3.Remove a Book");
 	printf("\n\t\t 4.Book List");
 	printf("\n\t\t 5.Issued Book List");
+	printf("\n\t\t 6.Return Issued Book");
 	printf("\n\t\t 0.Exit");
 	printf("\n\n\t\t Enter your choice :  ");
 	scanf("%d",&choice);
@@ -106,7 +108,7 @@ void booklist()
 }
 void rmove()
 {
-	FILE *fd;
+	
 	int id,check=0;
 	system("cls");
 	
@@ -120,7 +122,7 @@ void rmove()
 	
 	while(fread(&b,sizeof(b), 1, fb)==1)
 	{
-		if(id ==b.sn)
+		if(id==b.sn)
 		{
 			check=1;
 			continue;
@@ -283,7 +285,7 @@ void login()
 	}
 	if(strcmp(us,ok)==0&&strcmp(pas,get)==0)
 	{
-		printf("/n/tLOGGED IN");
+		printf("\n\nLOGGED IN SUCCESSFULLY\n");
 		//getch();
 	}
 	else
@@ -300,12 +302,12 @@ void login()
 			if(s==62)
 			{
 				fflush(stdin);
-				printf("\nnEnter New password max length 8 : ");
+				printf("\n\tEnter New password max length 8 : ");
 				gets(ne);
 				
 				fprintf(fp, "%s", ne);
 				printf("\n\tPassword changed Successfully ..");
-				printf("\n\tLg in again .");
+				printf("\n\tLog in again .");
 				
 			}
 		}

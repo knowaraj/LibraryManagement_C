@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include<time.h>
+#include <unistd.h>
 struct book{
 	int sn;
 	char bname[30];
@@ -27,10 +28,11 @@ FILE *fi;
 FILE *fp;
 FILE *fd;
 int main(){
+	system("COLOR 70");
 	int choice;
 	login();
 	MENU:
-	printf(" \n____________Library Menu____________\n");
+	printf(" \n\t____________Library Menu____________\n");
 	printf("\n\t\t 1.Add a Book ");
 	printf("\n\t\t 2.Issue a Book ");
 	printf("\n\t\t 3.Remove a Book");
@@ -63,7 +65,7 @@ int main(){
 		case 0:
 			exit(0);
 		default:
-			printf("Enter Correct choice : ");
+			printf("Enter Correct choice. ");
 			goto MENU;
 	}
 	goto MENU;
@@ -87,24 +89,23 @@ void add()
 	
 	fwrite(&b,sizeof(b),1,fb);
 	
-	printf("\nBook Added Successfully!!!");
+	printf("\nBook Added Successfully!!!\n\n\n\n\n\n\n");
 	
 	fclose(fb);
 }
 void booklist()
 {
 	system("cls");
-	system("color 0b");
-	printf("________Available Books________\n\n");
+	printf("\n\t\t________Available Books________\n\n");
 	
 	printf("%-10s %-30s %-20s\n\n","Book ID","Book Name","Author");
 	
 	fb=fopen("library.txt","rb");
-//	rewind(fb);
 	while(fread(&b,sizeof(b),1,fb) == 1)
 	{
 		printf("%-10d %-30s %-20s\n\n",b.sn,b.bname,b.authname);
 	}
+	printf("\n\n\n\n\n\n\n");
 }
 void rmove()
 {
@@ -135,13 +136,13 @@ void rmove()
 	
 	if(check==1)
 	{
-		system("color 02");
-		printf("\n\tBook Deleted Successfully..");	
+	//	system("color 02");
+		printf("\n\tBook Deleted Successfully.\n\n\n\n\n\n");	
 	}
 	if(check!=1)
 	{
-		system("color 04");
-		printf("\n\tRecord not found!!");	
+	//	system("color 04");
+		printf("\n\tRecord not found!!\n\n\n\n\n\n");	
 	}
 	fclose(fb);
 	fclose(fd);
@@ -174,7 +175,8 @@ void issue()
 		if(check==2)
 		{
 			printf("\n\tRecord not found!!");
-			printf("\n\tPlease enter correct book id: ");
+			printf("\n\tPlease enter correct book id. ");
+			sleep(2);
 			goto bk;
 		}
 	}
@@ -196,7 +198,7 @@ void issue()
 	fflush(stdin);
 	gets(s.date);
 	
-	printf("\n\tBook Issued Successfully ");	
+	printf("\n\tBook Issued Successfully \n\n\n\n\n");	
 	
 	fwrite(&s,sizeof(s),1,fi);
 	fclose(fi);
@@ -213,6 +215,7 @@ void issuelist()
 		printf("\n%-10d %-20s %-13d %-10d %-20s %-15s\n\n",s.id,s.stname,s.clas,s.bid,s.bname,s.date);
 			
 	}
+	printf("\n\n\n\n\n");
 	fclose(fi);
 }
 void retbook(){
@@ -222,7 +225,7 @@ void retbook(){
 	
 	fi=fopen("issue.txt","rb");
 	
-	printf("\n\tEnter std id and book id to Remove : ");
+	printf("\n\n\tEnter std id and book id to Remove : ");
 	scanf("%d",&id);
 	scanf("%d",&sn);
 	
@@ -244,13 +247,13 @@ void retbook(){
 	
 	if(check==1)
 	{
-		system("color 02");
-		printf("\n\tBook returned Successfully..");	
+	//	system("color 02");
+		printf("\n\tBook returned Successfully..\n\n\n\n\n");	
 	}
 	if(check!=1)
 	{
-		system("color 04");
-		printf("\n\tRecord not found!!");	
+		//system("color 04");
+		printf("\n\tRecord not found!!\n\n\n\n\n\n");	
 	}
 	fclose(fi);
 	fclose(fs);
@@ -269,10 +272,13 @@ void login()
  char get[10];
  int f,s;
 	log:
-  printf("\n\tEnter the username  :");
+   printf("\n%20.s-------------------------------------------");
+   printf("\n\n\n\n%20.s     LIBRARY MANAGEMENT SYSTEM");
+   printf("\n\n\n%20.s--------------------------------------------\n\n");
+  printf("\n\tEnter the username  : ");
   gets(ok);
   fflush(stdin);
-  printf("\n\tEnter the pass  :");
+  printf("\n\n\tEnter the password/pin  :");
   gets(pas);
   fflush(stdin);
   system("cls");
@@ -281,17 +287,19 @@ void login()
 	if(strcmp(us,ok)!=0)
 	{
 		printf("\n\tUsername wrong try again !");
+		sleep(3);
 		goto log;
 	}
 	if(strcmp(us,ok)==0&&strcmp(pas,get)==0)
 	{
-		printf("\n\nLOGGED IN SUCCESSFULLY\n");
-		//getch();
+		printf("\n\n\n\t\t\tLOGGED IN SUCCESSFULLY\n");
+		sleep(3);
+		system("cls");
 	}
 	else
 	{
 		rewind(fp);
-		printf("\n\tPassword wrong!!\n\tIf forgot password Press 1 and Otherr to retry: ");
+		printf("\n\tPassword wrong!!\n\tIf forgot password Press 1 and any otherr to retry: ");
 		scanf("%d",&f);
 		fflush(stdin);
 		
@@ -302,12 +310,14 @@ void login()
 			if(s==62)
 			{
 				fflush(stdin);
-				printf("\n\tEnter New password max length 8 : ");
+				printf("\n\tEnter New password/pin max length 8 : ");
 				gets(ne);
 				
 				fprintf(fp, "%s", ne);
-				printf("\n\tPassword changed Successfully ..");
-				printf("\n\tLog in again .");
+				printf("\n\tPassword changed Successfully . ");
+				sleep(3);
+				system("cls");
+				printf("\n\tLog in again .\n");
 				
 			}
 		}

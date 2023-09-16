@@ -207,21 +207,7 @@ void issue()
 	fwrite(&s,sizeof(s),1,fi);
 	fclose(fi);
 }
-void issuelist()
-{
-	system("cls");
-	printf("\n\t\t Issued Book list : ");
-	
-	printf("\n%-10s %-20s %-10s %-10s %-20s %-15s\n\n","Student ID","Student Name","Student Class","Book ID","Book name","Date");
-	fi=fopen("issue.txt","rb");
-	while(fread(&s,sizeof(s),1,fi)==1)
-	{
-		printf("\n%-10d %-20s %-13d %-10d %-20s %-15s\n\n",s.id,s.stname,s.clas,s.bid,s.bname,s.date);
-			
-	}
-	printf("\n\n\n\n\n");
-	fclose(fi);
-}
+
 void retbook(){
 	FILE *fs;
 	int id,sn,check=0;
@@ -266,6 +252,21 @@ void retbook(){
 	rename("dl.txt","issue.txt");
 	check=0;
 	
+}
+void issuelist()
+{
+	system("cls");
+	printf("\n\t\t Issued Book list : ");
+	
+	printf("\n%-10s %-20s %-10s %-10s %-20s %-15s\n\n","Student ID","Student Name","Student Class","Book ID","Book name","Date");
+	fi=fopen("issue.txt","rb");
+	while(fread(&s,sizeof(s),1,fi)==1)
+	{
+		printf("\n%-10d %-20s %-13d %-10d %-20s %-15s\n\n",s.id,s.stname,s.clas,s.bid,s.bname,s.date);
+			
+	}
+	printf("\n\n\n\n\n");
+	fclose(fi);
 }
 void login()
 {

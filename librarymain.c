@@ -318,6 +318,7 @@ void login()
 				sleep(3);
 				system("cls");
 				printf("\n\tLog in again .\n");
+				goto log;
 				
 			}
 		}

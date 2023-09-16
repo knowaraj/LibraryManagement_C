@@ -7,6 +7,7 @@ struct book{
 	int sn;
 	char bname[30];
 	char authname[30];
+	char date[15];
 }b;
 struct student{
 	int id;
@@ -86,6 +87,10 @@ void add()
 	printf("\nEnter Author Name :  ");
 	fflush(stdin);
 	gets(b.authname);
+
+	printf("\nEnter date in year/month/day order : ");
+	fflush(stdin);
+	gets(b.date);
 	
 	fwrite(&b,sizeof(b),1,fb);
 	
@@ -98,12 +103,12 @@ void booklist()
 	system("cls");
 	printf("\n\t\t________Available Books________\n\n");
 	
-	printf("%-10s %-30s %-20s\n\n","Book ID","Book Name","Author");
+	printf("%-10s %-30s %-20s %-15s\n\n","Book ID","Book Name","Author","Date");
 	
 	fb=fopen("library.txt","rb");
 	while(fread(&b,sizeof(b),1,fb) == 1)
 	{
-		printf("%-10d %-30s %-20s\n\n",b.sn,b.bname,b.authname);
+		printf("%-10d %-30s %-20s %-15s\n\n",b.sn,b.bname,b.authname,b.date);
 	}
 	printf("\n\n\n\n\n\n\n");
 }
@@ -126,6 +131,7 @@ void rmove()
 		if(id==b.sn)
 		{
 			check=1;
+			
 			continue;
 		}
 		else
@@ -136,12 +142,10 @@ void rmove()
 	
 	if(check==1)
 	{
-	//	system("color 02");
 		printf("\n\tBook Deleted Successfully.\n\n\n\n\n\n");	
 	}
 	if(check!=1)
 	{
-	//	system("color 04");
 		printf("\n\tRecord not found!!\n\n\n\n\n\n");	
 	}
 	fclose(fb);

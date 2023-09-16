@@ -176,15 +176,15 @@ void issue()
 		else {
 			check=2;
 		}
-		if(check==2)
-		{
-			printf("\n\tRecord not found!!");
-			printf("\n\tPlease enter correct book id. ");
-			sleep(2);
-			goto bk;
-		}
-	}
 
+	}
+	if(check==2)
+	{
+		printf("\n\tRecord not found!!");
+		printf("\n\tPlease enter correct book id. ");
+		sleep(2);
+		goto bk;
+	}
 	fi =fopen("issue.txt","ab");
 	
 	printf("\n\tEnter student name : ");
@@ -321,8 +321,7 @@ void login()
 				printf("\n\tPassword changed Successfully . ");
 				sleep(3);
 				system("cls");
-				printf("\n\tLog in again .\n");
-				goto log;
+				
 				
 			}
 		}
